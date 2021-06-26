@@ -1,9 +1,9 @@
 <!--
  * @Description: Description
  * @Author: ZHANG ZHEN
- * @Date: 2021-06-26 23:10:31
+ * @Date: 2021-06-27 00:15:13
  * @LastEditors: ZHANG ZHEN
- * @LastEditTime: 2021-06-27 00:10:03
+ * @LastEditTime: 2021-06-27 00:19:55
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第一个3D场景</title>
+    <title>立方体动画</title>
     <style>
         * {
             margin: 0;
@@ -55,8 +55,12 @@
         renderer.setClearColor(0xb9d3ff, 1);// 设置背景颜色
         document.body.appendChild(renderer.domElement);// body 元素中插入canvas对象
         // 执行渲染操作 指定场景、相机位置参数
-        console.log(scene.children)
-        renderer.render(scene, camera);
+        function render() {
+            renderer.render(scene, camera);// 渲染执行
+            mesh.rotateY(0.01);// 每次绕Y轴旋转0.01弧度
+            requestAnimationFrame(render);// 你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。渲染下一帧
+        }
+        render();
     </script>
 </body>
 </html>
