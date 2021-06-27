@@ -1,9 +1,9 @@
 <!--
- * @Description: Description
+ * @Description: 物体操作
  * @Author: ZHANG ZHEN
- * @Date: 2021-06-27 00:15:13
+ * @Date: 2021-06-27 23:17:16
  * @LastEditors: ZHANG ZHEN
- * @LastEditTime: 2021-06-27 23:18:54
+ * @LastEditTime: 2021-06-28 00:16:07
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +20,11 @@
         }
     </style>
     <script src="https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- 控制函数 -->
+    <script src="../js/OrbitControls.js"></script>
 </head>
 <body>
-    <script>
+    <script type="module">
         // 创建一个场景
         var scene = new THREE.Scene();
         // 网格模型
@@ -55,18 +57,15 @@
         renderer.setClearColor(0xb9d3ff, 1);// 设置背景颜色
         document.body.appendChild(renderer.domElement);// body 元素中插入canvas对象
         // 执行渲染操作 指定场景、相机位置参数
-        let T0 = new Date(); // 上次执行时间
         function render() {
-            let T1 = new Date();// 本次时间
-            let t = T1 - T0; // 时间差 
-            // console.log(t);// 两帧之间的时间间隔 单位： ms
-            console.log(Math.round(1000/t));// 渲染的帧率
-            T0 = T1;// 本次时间间隔赋值给上次时间
             renderer.render(scene, camera);// 渲染执行
-            mesh.rotateY(0.01);// 每次绕Y轴旋转0.01弧度
-            requestAnimationFrame(render);// 你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。渲染下一帧
         }
         render();
+        // 创建控件对象 相机对象camera作为参数  控件可以监听鼠标的变化 改变相机对象的属性 控制的对象，然后是元素节点
+        var controls = new THREE.OrbitControls(camera, renderer.domElement);
+        // 监听鼠标时间， 触发渲染函数，更新canvas画布渲染
+        console.log(controls)
+        controls.addEventListener('change', render);
     </script>
 </body>
 </html>
